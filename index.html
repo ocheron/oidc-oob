@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Authorization code</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+        window.onload = function() {
+            var field = document.getElementById('code'),
+                tmp = [];
+            window.location.search
+                .substring(1)
+                .split('&')
+                .forEach(function (item) {
+                    tmp = item.split('=');
+                    if (tmp[0] === 'code') {
+                        field.value = decodeURIComponent(tmp[1]);
+                    }
+                });
+        }
+        function copyToClipboard(id) {
+            var field = document.getElementById(id);
+            navigator.clipboard.writeText(field.value);
+        }
+    </script>
+</head>
+<body>
+    <div class="panel">
+        <h1>Authorization code</h1>
+        <div class="warning">
+            <p>Don't continue unless you know and trust the receiving application.</p>
+        </div>
+        <p>Please copy the code below, switch to the application and paste it where asked:</p>
+        <div class="inputs">
+            <textarea id="code" readonly></textarea>
+            <button class="copy" onclick="copyToClipboard('code');">Copy</button>
+        </div>
+        <p>If you don't want to continue, simply close this window.</p>
+    </div>
+</body>
+</html>
